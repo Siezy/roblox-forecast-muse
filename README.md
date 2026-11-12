@@ -34,8 +34,8 @@ Scored with the competition's log-score over hourly archive reads
 
 | window | this model | house baseline (static chart) |
 |---|---|---:|
-| practice Nov 8-10 | -34.40 | -43.51 |
-| 6 rolling windows (mean) | -36.39 | -45.77 |
+| practice Nov 8-10 | -34.14 | -43.51 |
+| 6 rolling windows (mean) | -36.23 | -45.77 |
 
 That is about +9 nats per scored hour over the baseline. The oracle
 (test-window frequencies) is -15.41, so the model is roughly halfway

@@ -16,8 +16,8 @@ Reads $MAKEFUN_INPUT_DIR (default /input) history.ndjson + task.json and
 writes $MAKEFUN_OUTPUT_DIR (default /output) forecast.json.
 Deterministic: no randomness, no network, standard library only.
 
-Backtest (practice window Nov 8-10, 10 archive reads): log score -34.40
-vs the house baseline's -43.51. Mean over six rolling windows: -36.39
+Backtest (practice window Nov 8-10, 10 archive reads): log score -34.14
+vs the house baseline's -43.51. Mean over six rolling windows: -36.23
 vs baseline -45.77. The oracle (test-window frequencies) is -15.41.
 """
 import json
@@ -78,12 +78,12 @@ def build_forecast(reads, places=10):
             span_h = max(1.0, (recent[-1][0] - recent[0][0]) / 3600.0)
             vel = (r0 - r1) / span_h
             vel = max(-VEL_CAP, min(VEL_CAP, vel))
-            m *= math.exp(MOMENTUM * vel * 24.0)
+            m *= math.exp(MOMENTUM * vel * 12.0)
             p0, p1 = recent[0][2], recent[-1][2]
             if p0 and p1 and p0 > 0 and p1 > 0:
                 g = math.log(p1 / p0)
                 g = max(-GROWTH_CAP, min(GROWTH_CAP, g))
-                m *= math.exp(MOMENTUM * g * 5.0)
+                m *= math.exp(MOMENTUM * g * 3.0)
         mom[gid] = min(m, 4.0)
     mass = {k: {} for k in range(1, places + 1)}
     total = {}
